@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.8b44bf2e.css",
-    "main.js": "/static/js/main.443b0a5a.js",
-    "static/js/787.dfa65005.chunk.js": "/static/js/787.dfa65005.chunk.js",
-    "static/media/logo.png": "/static/media/logo.d30faec7b9fa0acd0b0e.png",
-    "static/media/ForumFont-Bold.woff2": "/static/media/ForumFont-Bold.145f211a356fce76072d.woff2",
-    "static/media/ForumFont-Semibold.woff2": "/static/media/ForumFont-Semibold.0a3262809350126554ad.woff2",
-    "static/media/ForumFont-Regular.woff2": "/static/media/ForumFont-Regular.0ca75da985ad7821cbde.woff2",
-    "static/media/avatar.png": "/static/media/avatar.2140d3ad59844593604f.png",
-    "index.html": "/index.html",
-    "main.8b44bf2e.css.map": "/static/css/main.8b44bf2e.css.map",
-    "main.443b0a5a.js.map": "/static/js/main.443b0a5a.js.map",
-    "787.dfa65005.chunk.js.map": "/static/js/787.dfa65005.chunk.js.map"
+    "main.css": "/ForumLanguage/static/css/main.ddb85046.css",
+    "main.js": "/ForumLanguage/static/js/main.7a4296e4.js",
+    "static/js/787.dfa65005.chunk.js": "/ForumLanguage/static/js/787.dfa65005.chunk.js",
+    "static/media/logo.png": "/ForumLanguage/static/media/logo.d30faec7b9fa0acd0b0e.png",
+    "static/media/ForumFont-Bold.woff2": "/ForumLanguage/static/media/ForumFont-Bold.145f211a356fce76072d.woff2",
+    "static/media/ForumFont-Semibold.woff2": "/ForumLanguage/static/media/ForumFont-Semibold.0a3262809350126554ad.woff2",
+    "static/media/ForumFont-Regular.woff2": "/ForumLanguage/static/media/ForumFont-Regular.0ca75da985ad7821cbde.woff2",
+    "static/media/avatar.png": "/ForumLanguage/static/media/avatar.2140d3ad59844593604f.png",
+    "index.html": "/ForumLanguage/index.html",
+    "main.ddb85046.css.map": "/ForumLanguage/static/css/main.ddb85046.css.map",
+    "main.7a4296e4.js.map": "/ForumLanguage/static/js/main.7a4296e4.js.map",
+    "787.dfa65005.chunk.js.map": "/ForumLanguage/static/js/787.dfa65005.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8b44bf2e.css",
-    "static/js/main.443b0a5a.js"
+    "static/css/main.ddb85046.css",
+    "static/js/main.7a4296e4.js"
   ]
 }
