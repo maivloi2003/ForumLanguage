@@ -7,7 +7,7 @@ import { DefaultLayout } from '~/components/Layouts';
 function App() {
 
     return (
-        <Router>
+        <Router >
             <div className="App">
                 <Routes>
                     {/* Public Routes */}

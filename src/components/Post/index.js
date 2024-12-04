@@ -5,6 +5,7 @@ import styles from './Post.module.scss'
 import Image from "~/components/Image";
 import Button from "~/components/Button";
 import { faEllipsisVertical, faShare } from "@fortawesome/free-solid-svg-icons";
+import packageInfo from '../../../package.json'
 import { faComment, faHeart } from "@fortawesome/free-regular-svg-icons";
 
 const cx = classNames.bind(styles)
