@@ -1,0 +1,118 @@
+.wrapper {
+    width: 66%;
+    background-color: #e4e4e4;
+    padding: 20px 40px;
+    border-radius: 14px;
+    margin: 22px 0;
+
+    &.profile {
+        width: 90%;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    height: 46px;
+    width: 46px;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+}
+
+.name {
+    font-size: 2rem;
+    margin: 0 20px 0 14px;
+    color: #000;
+    font-weight: 700;
+}
+
+.date {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #333;
+}
+
+.language {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #333;
+    position: relative;
+    left: 10px;
+}
+
+.title,
+.content {
+    margin-top: 16px;
+
+    .text-content,
+    .text-title {
+        color: #000;
+    }
+}
+
+.text-title {
+    font-size: 2rem;
+    margin-left: 8px;
+    font-weight: 700;
+}
+
+.text-content {
+    height: auto;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 1.8rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    font-weight: 600;
+}
+
+.img {
+    display: flex;
+    margin-top: 24px;
+    width: 100%;
+    justify-content: center;
+    object-fit: cover;
+}
+
+.img-src {
+    max-height: 400px;
+}
+
+.interact {
+    display: flex;
+    margin-top: 30px;
+
+    .like-btn,
+    .comment-btn,
+    .share-btn {
+        padding: 10px 12px;
+    }
+
+    span {
+        min-width: 14px;
+    }
+}
+
+.like,
+.comment,
+.share {
+    margin: 0 4px;
+
+    .like-btn,
+    .comment-btn {
+        svg {
+            margin-left: 2px;
+        }
+    }
+}

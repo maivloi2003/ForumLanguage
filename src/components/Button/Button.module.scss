@@ -1,0 +1,97 @@
+.wrapper {
+    border: 1.5px solid transparent;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    font-family: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+
+    + .wrapper {
+        margin-left: 16px;
+    }
+
+    &.disable {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+.icon + .title,
+.title + .icon {
+    margin-left: 8px;
+}
+
+// Styles Button
+.wrapper {
+    &.normal {
+        border-color: var(--primary);
+
+        &:hover {
+            background-color: rgba(29, 191, 175, 0.3);
+        }
+    }
+
+    &.primary {
+        color: var(--white);
+        font-weight: 600;
+        border: none;
+        background-color: var(--primary);
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &.round {
+        border-radius: 9999px;
+    }
+
+    &.deleted {
+        color: red;
+        border-color: var(--primary);
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &.iconText {
+        border: none;
+        padding: 16px 10px;
+        border-radius: 10px;
+        font-size: 2rem;
+
+        &:hover {
+            background-color: #f1f1f1;
+        }
+    }
+
+    &.iconNav {
+        min-width: 24px;
+        height: 100%;
+        margin-left: 4px;
+        font-size: 1.6rem;
+        margin-right: 4px;
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+        color: #757575;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &:hover {
+            color: #000;
+            background-color: rgba(0, 0, 0, 0.07);
+        }
+    }
+}

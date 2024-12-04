@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.contain {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    max-height: 850px;
+    overflow-y: auto;
+    padding-bottom: 30px;
+}

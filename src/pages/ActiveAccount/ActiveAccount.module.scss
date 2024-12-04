@@ -1,0 +1,60 @@
+.wrapper {
+    margin: 60px auto;
+    display: flex;
+}
+
+.logo {
+    .img {
+        width: 100%;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header,
+.body {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+
+.header {
+    .heading {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .title {
+        font-size: 2.4rem;
+        font-weight: 600;
+        text-align: center;
+    }
+}
+
+.body {
+    .btn-send {
+        padding: 10px 24px;
+        margin-bottom: 12px;
+    }
+
+    .link {
+        color: var(--primary);
+        display: block;
+        text-align: center;
+        font-size: 2rem;
+
+        &:hover{
+            opacity: 0.5;
+        }
+    }
+}
+

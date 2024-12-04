@@ -1,0 +1,51 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 18px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-left: 12px;
+    color: var(--text-color);
+}
+
+.datetime {
+    margin-left: 12px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.content {
+    font-size: 1.8rem;
+    margin: 12px 50px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.interact {
+    display: flex;
+    padding-left: 40px;
+
+    .like,
+    .reply {
+        color: var(--primary);
+        padding: 6px;
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+}
