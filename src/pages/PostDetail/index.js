@@ -1,41 +1,72 @@
 import classNames from 'classnames/bind';
 import styles from './PostDetail.module.scss'
 import Post from '~/components/Post';
-import { getPostByIdPostService, getCommentByIdPostService } from '~/apiServices';
+import { getPostByIdPostService, getCommentByIdPostService, commentService } from '~/apiServices';
 import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import Comment from '~/components/Comment';
+import { useScroll } from '~/hooks';
+import { useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles)
 
-function PostDetail() {
+function PostDetail({ contentRef }) {
+    const { id_post: idPost } = useParams();
     const [post, setPost] = useState({});
     const [comments, setComments] = useState([]);
+    const [valueContent, setValueContent] = useState('')
+    const [pageCurrent, setPageCurrent] = useState(0)
 
-    const handleGetPost = async (id, token) => {
-        const res = await getPostByIdPostService(id, token)
+    const fetchPost = async (id, token) => {
+        const res = await getPostByIdPostService(id, token);
+        if (res?.result) setPost(res.result);
+    };
 
-        if (res?.result) {
-            setPost(res.result)
-        }
-    }
-
-    const handleGetComment = async (id, page, size, token) => {
-        const res = await getCommentByIdPostService(id, page, size, token)
+    const fetchComments = async (id, page, size, token) => {
+        const res = await getCommentByIdPostService(id, page, size, token);
         if (res.result?.content) {
-            setComments(res.result.content)
+            setComments((prev) => [...prev, ...res.result.content]);
         } else {
             console.log(res);
+        }
+    };
+
+    const handleCancel = (e) => {
+        e.preventDefault()
+        setValueContent('')
+    }
+
+    const addComment = async (id_post, content, token) => {
+        const res = await commentService(id_post, content, token);
+        if (res?.result) {
+            setComments((prev) => [res.result, ...prev]);
+            setValueContent('');
+        } else {
+            console.log(res);
+        }
+    };
+
+    useScroll(contentRef, () => setPageCurrent(prev => prev + 1))
+
+    const handleComment = (id) => async (e) => {
+        e.preventDefault()
+        const token = localStorage.getItem('authToken')
+        if (token && valueContent.trim()) {
+            await addComment(id, valueContent, token)
         }
     }
 
     useEffect(() => {
-        const url = document.URL
-        const idPost = url.substring(url.lastIndexOf('/') + 1)
-        const token = localStorage.getItem('authToken')
-        handleGetPost(idPost, token);
-        handleGetComment(idPost, 0, 5, token)
-    }, [])
+        const token = localStorage.getItem('authToken');
+        fetchPost(idPost, token);
+    }, [idPost]);
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        fetchComments(idPost, pageCurrent, 5, token);
+    }, [idPost, pageCurrent]);
+
 
     return (
         <div className={cx('wrapper')}>
@@ -44,10 +75,10 @@ function PostDetail() {
                     <Post data={post} />
                     <div className={cx('cmt')}>
                         <form className={cx('form')}>
-                            <textarea name="comment" className={cx('content')} placeholder="Add Comment" id=""></textarea>
+                            <textarea value={valueContent} onChange={e => setValueContent(e.target.value)} name="comment" className={cx('content')} placeholder="Add Comment" id=""></textarea>
                             <div className={cx('btn')}>
-                                <Button round normal className={cx('cancel-btn')}>Cancel</Button>
-                                <Button round primary className={cx('submit-btn')}>Comment</Button>
+                                <Button onClick={handleCancel} round normal className={cx('cancel-btn')}>Cancel</Button>
+                                <Button onClick={handleComment(post.id)} round primary className={cx('submit-btn')}>Comment</Button>
                             </div>
                         </form>
 

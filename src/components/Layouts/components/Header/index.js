@@ -1,81 +1,39 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useContext } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faUser, faGear, faPlus, faSignOut, faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import Image from '~/components/Image';
-import { Link } from 'react-router-dom';
 import Menu from '~/components/Popper/Menu';
-import { infoUserCurrentService } from '~/apiServices';
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const [searchValue, setSearchValue] = useState('');
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem('authToken'));
-    const [infoCurrentUser, setInfoCurrentUser] = useState({
-        id: '',
-        name: '',
-        img: '',
-    });
+    const infoUser = useContext(UserContext);
+    const navigate = useNavigate();
 
     const inputRef = useRef();
 
     const menuItems = useMemo(() => [
         {
             icon: faUser,
-            title: infoCurrentUser.name || 'Profile',
-            to: `/ForumLanguage/users/${infoCurrentUser.id}`,
-            separate: true
+            title: infoUser?.name || 'Profile',
+            to: `/ForumLanguage/users/${infoUser?.id || ''}`,
+            separate: true,
         },
-        {
-            icon: faGear,
-            title: 'Setting',
-            to: '/ForumLanguage/setting'
-        },
-        {
-            icon: faCircleInfo,
-            title: 'Support',
-            to: '/ForumLanguage/support'
-        },
-        {
-            icon: faSignOut,
-            title: 'Logout',
-            to: '/ForumLanguage/login'
-        },
-    ], [infoCurrentUser]);
-
-    useEffect(() => {
-        const handleStorageChange = () => {
-            setCurrentUser(localStorage.getItem('authToken'));
-        };
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
-    }, []);
-
-    const fetchCurrentUser = useCallback(async () => {
-        if (!currentUser) return;
-
-        const res = await infoUserCurrentService(currentUser);
-        if (res?.result) {
-            const { id, name, img } = res.result;
-            setInfoCurrentUser({
-                id,
-                name,
-                img: img || null
-            });
-        }
-    }, [currentUser]);
-
-    useEffect(() => {
-        fetchCurrentUser();
-    }, [fetchCurrentUser]);
+        { icon: faGear, title: 'Setting', to: '/ForumLanguage/setting' },
+        { icon: faCircleInfo, title: 'Support' },
+        { icon: faSignOut, title: 'Logout', to: '/ForumLanguage/login' },
+    ], [infoUser]);
 
     const handlers = {
         clearSearch: () => {
@@ -83,7 +41,9 @@ function Header() {
             inputRef.current.focus();
         },
         search: () => {
-            window.location.href = `?content="${searchValue}"`;
+            if (searchValue.trim()) {
+                navigate(`/?content="${searchValue.trim()}"`);
+            }
         },
         handleKeyUp: (e) => {
             if (e.code === 'Enter') handlers.search();
@@ -95,12 +55,13 @@ function Header() {
             <div className={cx('inner')}>
                 {/* Logo */}
                 <div className={cx('logo')}>
-                    <Link to="/">
-                        <img src={images.logo} alt="Forum " />
+                    <Link to="/ForumLanguage/">
+                        <img src={images.logo} alt="Forum" />
                         <h4 className={cx('logo-title')}>ForumLanguages</h4>
                     </Link>
                 </div>
 
+                {/* Search */}
                 <div className={cx('search')}>
                     <input
                         ref={inputRef}
@@ -119,8 +80,9 @@ function Header() {
                     </button>
                 </div>
 
+                {/* Actions */}
                 <div className={cx('action')}>
-                    {currentUser ? (
+                    {!!infoUser ? (
                         <>
                             <Tippy content="Create new post" placement="bottom">
                                 <Button to="/ForumLanguage/upload" normal round leftIcon={faPlus}>
@@ -131,8 +93,8 @@ function Header() {
                             <Menu items={menuItems}>
                                 <Image
                                     className={cx('user-avatar')}
-                                    src={infoCurrentUser.img}
-                                    alt={infoCurrentUser.name}
+                                    src={infoUser?.img}
+                                    alt={infoUser?.name || 'User Avatar'}
                                 />
                             </Menu>
                         </>
@@ -152,4 +114,4 @@ function Header() {
     );
 }
 
-export default React.memo(Header);
+export default Header;

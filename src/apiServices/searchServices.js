@@ -18,10 +18,9 @@ const search = async (page, size, content, language, token = undefined) => {
         }
         const res = await request.get('posts', config)
 
-        return res.result.content;
+        return res;
     } catch (error) {
-        alert('Hết bài viết')
-        return [];
+        return error;
     }
 }
 
