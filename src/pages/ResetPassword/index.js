@@ -36,7 +36,7 @@ function ResetPassword() {
 
         if (res.result?.success) {
             alert('Change Password Success')
-            navigate('/login')
+            navigate('/ForumLanguage/login')
         } else {
             console.log(`Error: ${res}`);
 

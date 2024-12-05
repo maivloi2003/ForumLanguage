@@ -48,9 +48,9 @@ function Login() {
         if (token) {
             const activeRes = await checkActiveService(token);
             if (activeRes.result?.active) {
-                navigate('/');
+                navigate('/ForumLanguage/');
             } else {
-                navigate('/activeAccount');
+                navigate('/ForumLanguage/activeAccount');
             }
         }
 
@@ -122,8 +122,8 @@ function Login() {
                             error={messageError.password}
                         />
                         <div className={cx('link')}>
-                            <Link className={cx('link-forgot')} to='/forgotPassword' >Forgot Password ?</Link>
-                            <Link className={cx('link-register')} to='/register' >Register</Link>
+                            <Link className={cx('link-forgot')} to='/ForumLanguage/forgotPassword' >Forgot Password ?</Link>
+                            <Link className={cx('link-register')} to='/ForumLanguage/register' >Register</Link>
                         </div>
                         <button className={cx('formSubmit')} type="submit">Login</button>
                     </form>

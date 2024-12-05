@@ -24,6 +24,7 @@ function Button(
         leftIcon = false,
         rightIcon = false,
         iconNav = false,
+        like = false,
         ...passProps
     }, ref) {
     let Comp = 'button'
@@ -40,7 +41,8 @@ function Button(
         disable,
         normal,
         deleted,
-        iconNav
+        iconNav,
+        like,
     })
 
     if (to) {

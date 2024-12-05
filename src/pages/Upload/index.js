@@ -69,7 +69,7 @@ function Upload() {
         const token = localStorage.getItem('authToken')
         const res = await uploadPostService(data, token);
         if (res?.result) {
-            navigate(`/post/${res.result.id}`);
+            navigate(`/ForumLanguage/post/${res.result.id}`);
         } else {
             console.error("Post upload failed:", res);
         }

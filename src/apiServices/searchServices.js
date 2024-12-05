@@ -1,15 +1,22 @@
 import * as request from '~/utils/request'
 
-const search = async (page, size, content, language) => {
+const search = async (page, size, content, language, token = undefined) => {
     try {
-        const res = await request.get('posts', {
+        const config = {
             params: {
                 page,
                 size,
                 content,
                 language
             }
-        })
+        }
+
+        if (token) {
+            config.headers = {
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        const res = await request.get('posts', config)
 
         return res.result.content;
     } catch (error) {

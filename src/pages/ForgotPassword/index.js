@@ -36,7 +36,7 @@ function ForgotPassword() {
             const token = res.result.token
             localStorage.setItem('authToken', token)
             if (localStorage.getItem('authToken')) {
-                navigate('/sendEmail', { state:{ fromPage: 'forgotPassword'}})
+                navigate('/ForumLanguage/sendEmail', { state:{ fromPage: 'forgotPassword'}})
             }
         } else {
             const { code, message } = res.response.data

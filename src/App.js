@@ -1,8 +1,15 @@
-import { Fragment, } from 'react';
+import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/components/Layouts';
 
+const isAuthenticated = () => {
+    return !!localStorage.getItem('authToken');
+};
+
+const PrivateRoute = ({ children }) => {
+    return isAuthenticated() ? children : <Navigate to="/ForumLanguage/login" />;
+};
 
 function App() {
 
@@ -41,9 +48,9 @@ function App() {
 
                         let Layout = DefaultLayout;
                         if (route.layout) {
-                            Layout = route.layout
+                            Layout = route.layout;
                         } else if (route.layout === null) {
-                            Layout = Fragment
+                            Layout = Fragment;
                         }
 
                         return (
@@ -51,16 +58,14 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    !!localStorage.getItem('authToken') ? (
+                                    <PrivateRoute>
                                         <Layout>
                                             <Page />
                                         </Layout>
-                                    ) : (
-                                        <Navigate to="/login" />
-                                    )
+                                    </PrivateRoute>
                                 }
                             />
-                        )
+                        );
                     })}
                 </Routes>
             </div>

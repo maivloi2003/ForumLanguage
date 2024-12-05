@@ -12,7 +12,6 @@ function PostDetail() {
     const [post, setPost] = useState({});
     const [comments, setComments] = useState([]);
 
-
     const handleGetPost = async (id, token) => {
         const res = await getPostByIdPostService(id, token)
 
@@ -40,7 +39,7 @@ function PostDetail() {
 
     return (
         <div className={cx('wrapper')}>
-            {post && (
+            {Object.keys(post).length > 0 && (
                 <>
                     <Post data={post} />
                     <div className={cx('cmt')}>
