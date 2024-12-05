@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ForumLanguage/static/css/main.ddb85046.css",
-    "main.js": "/ForumLanguage/static/js/main.ca91f9c9.js",
+    "main.css": "/ForumLanguage/static/css/main.224921a3.css",
+    "main.js": "/ForumLanguage/static/js/main.8f118d50.js",
     "static/js/787.dfa65005.chunk.js": "/ForumLanguage/static/js/787.dfa65005.chunk.js",
     "static/media/logo.png": "/ForumLanguage/static/media/logo.d30faec7b9fa0acd0b0e.png",
     "static/media/ForumFont-Bold.woff2": "/ForumLanguage/static/media/ForumFont-Bold.145f211a356fce76072d.woff2",
@@ -9,12 +9,12 @@
     "static/media/ForumFont-Regular.woff2": "/ForumLanguage/static/media/ForumFont-Regular.0ca75da985ad7821cbde.woff2",
     "static/media/avatar.png": "/ForumLanguage/static/media/avatar.2140d3ad59844593604f.png",
     "index.html": "/ForumLanguage/index.html",
-    "main.ddb85046.css.map": "/ForumLanguage/static/css/main.ddb85046.css.map",
-    "main.ca91f9c9.js.map": "/ForumLanguage/static/js/main.ca91f9c9.js.map",
+    "main.224921a3.css.map": "/ForumLanguage/static/css/main.224921a3.css.map",
+    "main.8f118d50.js.map": "/ForumLanguage/static/js/main.8f118d50.js.map",
     "787.dfa65005.chunk.js.map": "/ForumLanguage/static/js/787.dfa65005.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ddb85046.css",
-    "static/js/main.ca91f9c9.js"
+    "static/css/main.224921a3.css",
+    "static/js/main.8f118d50.js"
   ]
 }
