@@ -8,8 +8,8 @@ import Button from "~/components/Button";
 import { faEllipsisVertical, faHeart as faHeartSolid, faEyeSlash, faBookmark, faPen, faShare, faTrash, faFlag, faClose } from "@fortawesome/free-solid-svg-icons";
 import { faComment, faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { deletedPostService, likeService } from "~/apiServices";
-import packageInfo from '../../../package.json'
 import Menu from "~/components/Popper/Menu";
+import packageInfo from '../../../package.json'
 
 const cx = classNames.bind(styles)
 
@@ -31,7 +31,7 @@ function Post({ data, profile = false }) {
             return [
                 { icon: faPen, title: "Edit" },
                 ...commonItems,
-                { icon: faTrash, title: "Delete", onClick: toggleModal },
+                { icon: faTrash, title: "Delete", onClick: handleToggleModal },
             ];
         }
         return [...commonItems, { icon: faFlag, title: "Report" }];
@@ -47,7 +47,6 @@ function Post({ data, profile = false }) {
 
         setShowModal(false)
     }
-
 
     const handleToggleLike = async () => {
         const token = localStorage.getItem('authToken')
@@ -79,7 +78,7 @@ function Post({ data, profile = false }) {
         ));
     };
 
-    if (isDeleted) {
+    if (deleteState) {
         return (
             <div className={cx("wrapper", { profile })}>
                 <h3>Post Deleted</h3>
@@ -89,6 +88,7 @@ function Post({ data, profile = false }) {
 
     return (
         <Fragment>
+
             <div className={cx('wrapper', { profile })}>
                 <div className={cx('header')}>
                     <div className={cx('user')}>
@@ -101,13 +101,10 @@ function Post({ data, profile = false }) {
 
                     </div>
                     <div className={cx('more-btn')}>
-                        {showModal ? (
+
+                        <Menu post={true} items={getMenuItems()}>
                             <Button iconText leftIcon={faEllipsisVertical} />
-                        ) : (
-                            <Menu post={true} items={data.user_post ? menuItemsOwn : menuItemsOther}>
-                                <Button iconText leftIcon={faEllipsisVertical} />
-                            </Menu>
-                        )}
+                        </Menu>
                     </div>
                 </div>
                 <div className={cx('title')}>
@@ -154,24 +151,26 @@ function Post({ data, profile = false }) {
                     </div>
                 </div>
             </div>
-            {showModal && (
-                <div className={cx('modal')}>
-                    <div className={cx('container')}>
-                        <div className={cx('modal-header')}>
-                            <h3 className={cx('modal-heading')}>Delete post?</h3>
-                            <Button onClick={handleToggleModal} iconCircle className={cx('modal-close')} leftIcon={faClose} />
-                        </div>
-                        <div className={cx('modal-body')}>
-                            <p className={cx('modal-title')}>Once you delete this post, it can’t be restored.</p>
-                        </div>
-                        <div className={cx('modal-footer')}>
-                            <Button onClick={handleToggleModal} round normal className={cx('btn-cancel')}>Cancel</Button>
-                            <Button onClick={handleDeletePost} round deleted className={cx('btn-confirm')}>Yes, Delete</Button>
+            {
+                showModal && (
+                    <div className={cx('modal')}>
+                        <div className={cx('container')}>
+                            <div className={cx('modal-header')}>
+                                <h3 className={cx('modal-heading')}>Delete post?</h3>
+                                <Button onClick={handleToggleModal} iconCircle className={cx('modal-close')} leftIcon={faClose} />
+                            </div>
+                            <div className={cx('modal-body')}>
+                                <p className={cx('modal-title')}>Once you delete this post, it can’t be restored.</p>
+                            </div>
+                            <div className={cx('modal-footer')}>
+                                <Button onClick={handleToggleModal} round normal className={cx('btn-cancel')}>Cancel</Button>
+                                <Button onClick={handleDeletePost} round deleted className={cx('btn-confirm')}>Yes, Delete</Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </Fragment>
+                )
+            }
+        </Fragment >
     );
 }
 
