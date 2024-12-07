@@ -21,6 +21,8 @@ function Post({ data, profile = false }) {
 
     const handleToggleModal = () => setShowModal(prev => !prev)
 
+    const token = localStorage.getItem('authToken')
+
     const getMenuItems = () => {
         const commonItems = [
             { icon: faBookmark, title: "Save" },
@@ -101,10 +103,13 @@ function Post({ data, profile = false }) {
 
                     </div>
                     <div className={cx('more-btn')}>
-
-                        <Menu post={true} items={getMenuItems()}>
+                        {token ? (
+                            <Menu post={true} items={getMenuItems()}>
+                                <Button iconText leftIcon={faEllipsisVertical} />
+                            </Menu>
+                        ) : (
                             <Button iconText leftIcon={faEllipsisVertical} />
-                        </Menu>
+                        )}
                     </div>
                 </div>
                 <div className={cx('title')}>

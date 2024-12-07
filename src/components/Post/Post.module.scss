@@ -1,12 +1,16 @@
 .wrapper {
     width: 66%;
-    background-color: #e4e4e4;
+    background-color: #f1f1f1;
     padding: 20px 40px;
     border-radius: 14px;
     margin: 22px 0;
 
     &.profile {
         width: 90%;
+    }
+
+    &:hover {
+        background-color: #d6d6d6;
     }
 }
 
@@ -33,6 +37,10 @@
     margin: 0 20px 0 14px;
     color: #000;
     font-weight: 700;
+
+    &:hover {
+        color: var(--primary);
+    }
 }
 
 .date {
@@ -100,14 +108,15 @@
     }
 
     span {
-        min-width: 14px;
         line-height: 1.6rem;
+        min-width: 14px;
     }
 }
 
 .like,
 .comment,
 .share {
+    z-index: 1;
     margin: 0 4px;
 
     .like-btn,
@@ -116,4 +125,50 @@
             margin-left: 2px;
         }
     }
+}
+
+.modal {
+    display: none;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 340px;
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 1.6rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 6px;
+}
+
+.modal-body {
+    flex: 1;
+    padding: 0 8px;
+    .modal-title {
+        font-size: 1.4rem;
+    }
+}
+
+.modal-footer {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: flex-end;
 }
