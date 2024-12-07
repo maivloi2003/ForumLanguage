@@ -27,12 +27,12 @@ function Header() {
         {
             icon: faUser,
             title: infoUser?.name || 'Profile',
-            to: `/users/${infoUser?.id || ''}`,
+            to: `/ForumLanguage/users/${infoUser?.id || ''}`,
             separate: true,
         },
-        { icon: faGear, title: 'Setting', to: '/setting' },
+        { icon: faGear, title: 'Setting', to: '/ForumLanguage/setting' },
         { icon: faCircleInfo, title: 'Support' },
-        { icon: faSignOut, title: 'Logout', to: '/login' },
+        { icon: faSignOut, title: 'Logout', to: '/ForumLanguage/login' },
     ], [infoUser]);
 
     const handlers = {
@@ -42,7 +42,7 @@ function Header() {
         },
         search: () => {
             if (searchValue.trim()) {
-                navigate(`/?content="${searchValue.trim()}"`);
+                navigate(`/ForumLanguage/?content="${searchValue.trim()}"`);
             }
         },
         handleKeyUp: (e) => {
@@ -55,7 +55,7 @@ function Header() {
             <div className={cx('inner')}>
                 {/* Logo */}
                 <div className={cx('logo')}>
-                    <Link to="/">
+                    <Link to="/ForumLanguage/">
                         <img src={images.logo} alt="Forum" />
                         <h4 className={cx('logo-title')}>ForumLanguages</h4>
                     </Link>
@@ -85,7 +85,7 @@ function Header() {
                     {!!infoUser ? (
                         <>
                             <Tippy content="Create new post" placement="bottom">
-                                <Button to="/upload" normal round leftIcon={faPlus}>
+                                <Button to="/ForumLanguage/upload" normal round leftIcon={faPlus}>
                                     Create
                                 </Button>
                             </Tippy>
@@ -100,10 +100,10 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button to="/login" normal round>
+                            <Button to="/ForumLanguage/login" normal round>
                                 Login
                             </Button>
-                            <Button to="/register" normal round>
+                            <Button to="/ForumLanguage/register" normal round>
                                 Register
                             </Button>
                         </>

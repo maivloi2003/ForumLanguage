@@ -92,12 +92,12 @@ function Post({ data, profile = false }) {
             <div className={cx('wrapper', { profile })}>
                 <div className={cx('header')}>
                     <div className={cx('user')}>
-                        <Link to={`/users/${data.id_user}`} >
+                        <Link to={`/ForumLanguage/users/${data.id_user}`} >
                             <Image className={cx('avatar')} src={data.img_user} />
                         </Link>
-                        <Link className={cx('name')} to={`/users/${data.id_user}`}>{data.name}</Link>
-                        <Link className={cx('date')} to={`/post/${data.id}`}>{data.date_created}</Link>
-                        <Link className={cx('language')} to={`/post/${data.id}`}>{data.language}</Link>
+                        <Link className={cx('name')} to={`/ForumLanguage/users/${data.id_user}`}>{data.name}</Link>
+                        <Link className={cx('date')} to={`/ForumLanguage/post/${data.id}`}>{data.date_created}</Link>
+                        <Link className={cx('language')} to={`/ForumLanguage/post/${data.id}`}>{data.language}</Link>
 
                     </div>
                     <div className={cx('more-btn')}>
@@ -108,16 +108,16 @@ function Post({ data, profile = false }) {
                     </div>
                 </div>
                 <div className={cx('title')}>
-                    <Link className={cx('text-title')} to={`/post/${data.id}`}>{data.title}</Link>
+                    <Link className={cx('text-title')} to={`/ForumLanguage/post/${data.id}`}>{data.title}</Link>
                 </div>
                 <div className={cx('content')}>
-                    <Link className={cx('text-content')} to={`/post/${data.id}`}>
+                    <Link className={cx('text-content')} to={`/ForumLanguage/post/${data.id}`}>
                         {renderContent()}
                     </Link>
                 </div>
                 {data.img && (
                     <div className={cx('img')}>
-                        <Link to={`/post/${data.id}`} className={cx('img-link')}>
+                        <Link to={`/ForumLanguage/post/${data.id}`} className={cx('img-link')}>
                             <Image src={data.img} className={cx('img-src')} />
                         </Link>
                     </div>
@@ -137,7 +137,7 @@ function Post({ data, profile = false }) {
                     </div>
                     <div className={cx('comment')}>
                         <Button
-                            to={`/post/${data.id}`}
+                            to={`/ForumLanguage/post/${data.id}`}
                             className={cx('comment-btn')}
                             round
                             normal
