@@ -82,7 +82,7 @@ function Register() {
                 </div>
                 <div className={cx(stylesGrid['grid__row-6'], 'registerContent')}>
                     <form className={cx('form')} id="form-register" onSubmit={handleSubmit}>
-                        <h3 className={cx('heading')}>Login</h3>
+                        <h3 className={cx('heading')}>Register</h3>
                         <p className={cx('desc')}>Welcome To Forum Language</p>
 
                         <div className={cx('spacer')}></div>

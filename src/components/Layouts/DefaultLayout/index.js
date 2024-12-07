@@ -17,6 +17,7 @@ function DefaultLayout({ children }) {
                 <Sidebar />
                 <div ref={contentRef} className={cx('content')}>{children && React.cloneElement(children, { contentRef })}</div>
             </div>
+
         </div>
     );
 }

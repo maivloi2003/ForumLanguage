@@ -25,6 +25,7 @@ function Button(
         rightIcon = false,
         iconNav = false,
         like = false,
+        iconCircle = false,
         ...passProps
     }, ref) {
     let Comp = 'button'
@@ -38,6 +39,7 @@ function Button(
         round,
         primary,
         iconText,
+        iconCircle,
         disable,
         normal,
         deleted,

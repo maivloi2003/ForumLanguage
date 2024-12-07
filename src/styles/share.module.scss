@@ -1,6 +1,6 @@
 .wrapper {
     background-color: #f1f1f1;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: center;
 }
@@ -13,7 +13,9 @@
 }
 
 .registerLogo,
-.registerContent {
+.registerContent,
+.loginLogo,
+.loginContent {
     background-color: #fff;
     flex: 1;
     display: flex;
@@ -143,4 +145,49 @@
 
 .spacer {
     margin-top: 36px;
+}
+
+// Mobile
+@media (max-width: 767px) {
+    .wrapper {
+        display: block;
+        overflow-y: auto;
+    }
+
+    .login {
+        height: 100%;
+    }
+
+    .registerLogo,
+    .loginLogo {
+        display: none;
+    }
+    .registerContent,
+    .loginContent {
+        height: 100%;
+        background-color: #f1f1f1;
+    }
+
+    .link {
+        .link-forgot,
+        .link-register,
+        .link-login {
+            text-decoration: underline;
+            color: var(--primary);
+        }
+    }
+
+    .form {
+        width: 100%;
+        height: auto;
+        min-height: unset;
+        margin: 12px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+// Tablet
+@media (min-width: 768px) and (max-width: 1024px) {
 }

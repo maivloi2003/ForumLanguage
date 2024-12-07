@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 function Home({ contentRef }) {
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const infoUser = useContext(UserContext)
+    const { infoUser } = useContext(UserContext)
 
     const location = useLocation();
 

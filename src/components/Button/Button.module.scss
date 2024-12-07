@@ -20,6 +20,10 @@
     }
 }
 
+.icon {
+    width: 20px;
+}
+
 .icon + .title,
 .title + .icon {
     margin-left: 8px;
@@ -51,11 +55,12 @@
     }
 
     &.deleted {
-        color: red;
-        border-color: var(--primary);
+        background-color: red;
+        color: var(--white);
+        border-color: red;
 
         &:hover {
-            opacity: 0.8;
+            opacity: 0.7;
         }
     }
 
@@ -67,6 +72,16 @@
 
         &:hover {
             background-color: #f1f1f1;
+        }
+    }
+
+    &.iconCircle {
+        padding: 7px;
+        background-color: rgba(0, 0, 0, 0.07);
+        border-radius: 50%;
+
+        &:hover {
+            opacity: 0.6;
         }
     }
 

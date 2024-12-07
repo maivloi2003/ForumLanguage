@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import stylesGrid from '~/styles/grid.module.scss'
@@ -8,13 +8,15 @@ import images from "~/assets/images";
 import Image from "~/components/Image";
 import { useValidator } from '~/hooks';
 import FormGroup from '~/components/FormGroup';
-import { loginService, checkActiveService } from '~/apiServices'
+import { loginService, checkActiveService, infoUserCurrentService } from '~/apiServices'
+import { UserContext } from '~/context/UserContext';
 
 const cx = classNames.bind(styles)
 
 function Login() {
     const navigate = useNavigate()
     const [messageError, setMessageError] = useState({});
+    const { setInfoUser } = useContext(UserContext);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -48,9 +50,13 @@ function Login() {
         if (token) {
             const activeRes = await checkActiveService(token);
             if (activeRes.result?.active) {
-                navigate('/ForumLanguage/');
+                const userInfoRes = await infoUserCurrentService(token);
+                if (userInfoRes.result) {
+                    setInfoUser(userInfoRes.result);
+                    navigate('/');
+                }
             } else {
-                navigate('/ForumLanguage/activeAccount');
+                navigate('/activeAccount');
             }
         }
 
@@ -78,11 +84,11 @@ function Login() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx(stylesGrid.grid, 'register')}>
-                <div className={cx(stylesGrid['grid__row-6'], 'registerLogo')}>
+            <div className={cx(stylesGrid.grid, 'login')}>
+                <div className={cx(stylesGrid['grid__row-6'], 'loginLogo')}>
                     <Image className={cx('img')} src={images.logo} alt="Logo" />
                 </div>
-                <div className={cx(stylesGrid['grid__row-6'], 'registerContent')}>
+                <div className={cx(stylesGrid['grid__row-6'], 'loginContent')}>
                     <form className={cx('form')} id="form-login" onSubmit={handleSubmit}>
                         <h3 className={cx('heading')}>Login</h3>
                         <p className={cx('desc')}>Welcome To Forum Language</p>
@@ -122,8 +128,8 @@ function Login() {
                             error={messageError.password}
                         />
                         <div className={cx('link')}>
-                            <Link className={cx('link-forgot')} to='/ForumLanguage/forgotPassword' >Forgot Password ?</Link>
-                            <Link className={cx('link-register')} to='/ForumLanguage/register' >Register</Link>
+                            <Link className={cx('link-forgot')} to='/forgotPassword' >Forgot Password ?</Link>
+                            <Link className={cx('link-register')} to='/register' >Register</Link>
                         </div>
                         <button className={cx('formSubmit')} type="submit">Login</button>
                     </form>

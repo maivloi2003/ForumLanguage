@@ -8,7 +8,7 @@ import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [] }) {
+function Menu({ children, items = [], post = false }) {
     const [history, setHistory] = useState([{ data: items }]);
 
     useEffect(() => {
@@ -39,6 +39,7 @@ function Menu({ children, items = [] }) {
 
     return (
         <HeadlessTippy
+            trigger={post ? 'click' : 'mouseenter focus'}
             offset={[12, 8]}
             interactive
             delay={[0, 500]}

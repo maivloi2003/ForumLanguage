@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useContext } from 'react';
+import { useState, useRef, useMemo, useContext } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faUser, faGear, faPlus, faSignOut, faClose, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const [searchValue, setSearchValue] = useState('');
-    const infoUser = useContext(UserContext);
+    const { infoUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const inputRef = useRef();
@@ -27,12 +27,12 @@ function Header() {
         {
             icon: faUser,
             title: infoUser?.name || 'Profile',
-            to: `/ForumLanguage/users/${infoUser?.id || ''}`,
+            to: `/users/${infoUser?.id || ''}`,
             separate: true,
         },
-        { icon: faGear, title: 'Setting', to: '/ForumLanguage/setting' },
+        { icon: faGear, title: 'Setting', to: '/setting' },
         { icon: faCircleInfo, title: 'Support' },
-        { icon: faSignOut, title: 'Logout', to: '/ForumLanguage/login' },
+        { icon: faSignOut, title: 'Logout', to: '/login' },
     ], [infoUser]);
 
     const handlers = {
@@ -55,7 +55,7 @@ function Header() {
             <div className={cx('inner')}>
                 {/* Logo */}
                 <div className={cx('logo')}>
-                    <Link to="/ForumLanguage/">
+                    <Link to="/">
                         <img src={images.logo} alt="Forum" />
                         <h4 className={cx('logo-title')}>ForumLanguages</h4>
                     </Link>
@@ -85,7 +85,7 @@ function Header() {
                     {!!infoUser ? (
                         <>
                             <Tippy content="Create new post" placement="bottom">
-                                <Button to="/ForumLanguage/upload" normal round leftIcon={faPlus}>
+                                <Button to="/upload" normal round leftIcon={faPlus}>
                                     Create
                                 </Button>
                             </Tippy>
@@ -100,10 +100,10 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button to="/ForumLanguage/login" normal round>
+                            <Button to="/login" normal round>
                                 Login
                             </Button>
-                            <Button to="/ForumLanguage/register" normal round>
+                            <Button to="/register" normal round>
                                 Register
                             </Button>
                         </>
