@@ -53,7 +53,7 @@ function Login() {
                 const userInfoRes = await infoUserCurrentService(token);
                 if (userInfoRes.result) {
                     setInfoUser(userInfoRes.result);
-                    navigate('/');
+                    navigate('/ForumLanguage/');
                 }
             } else {
                 navigate('/ForumLanguage/activeAccount');
