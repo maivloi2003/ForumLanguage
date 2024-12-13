@@ -10,6 +10,7 @@ import { useValidator } from '~/hooks';
 import FormGroup from '~/components/FormGroup';
 import { loginService, checkActiveService, infoUserCurrentService } from '~/apiServices'
 import { UserContext } from '~/context/UserContext';
+import routesConfig from '~/config/routes'
 
 const cx = classNames.bind(styles)
 
@@ -53,10 +54,10 @@ function Login() {
                 const userInfoRes = await infoUserCurrentService(token);
                 if (userInfoRes.result) {
                     setInfoUser(userInfoRes.result);
-                    navigate('/ForumLanguage/');
+                    navigate(routesConfig.home);
                 }
             } else {
-                navigate('/ForumLanguage/activeAccount');
+                navigate(routesConfig.activeAccount);
             }
         }
 
@@ -128,8 +129,8 @@ function Login() {
                             error={messageError.password}
                         />
                         <div className={cx('link')}>
-                            <Link className={cx('link-forgot')} to='/ForumLanguage/forgotPassword' >Forgot Password ?</Link>
-                            <Link className={cx('link-register')} to='/ForumLanguage/register' >Register</Link>
+                            <Link className={cx('link-forgot')} to={routesConfig.forgotPassword} >Forgot Password ?</Link>
+                            <Link className={cx('link-register')} to={routesConfig.register} >Register</Link>
                         </div>
                         <button className={cx('formSubmit')} type="submit">Login</button>
                     </form>

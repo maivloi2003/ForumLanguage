@@ -7,6 +7,7 @@ import stylesGrid from '~/styles/grid.module.scss'
 import Image from "~/components/Image";
 import images from "~/assets/images";
 import { verifyAccountService } from "~/apiServices";
+import routesConfig from '~/config/routes'
 
 const cx = classNames.bind(styles)
 
@@ -55,7 +56,7 @@ function ConfirmEmail() {
                 <div className={cx('body')}>
                     <div className={cx('heading')}>{status.heading}</div>
                     <div className={cx('title')}>{status.title}</div>
-                    {status.showLink && <Link to='/ForumLanguage/login' className={cx('link')}>Go to the login page!</Link>}
+                    {status.showLink && <Link to={routesConfig.login} className={cx('link')}>Go to the login page!</Link>}
                 </div>
             </div>
         </div>

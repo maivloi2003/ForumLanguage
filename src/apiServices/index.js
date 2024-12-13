@@ -1,5 +1,6 @@
 export { default as searchService } from './searchServices'
 export { default as likeService } from './likeServices'
+export { default as notifyService } from './notifyServices'
 export { default as commentService } from './commentServices'
 export { default as deletedPostService } from './deletedPostServices'
 export { default as registerService } from './registerServices'

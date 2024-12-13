@@ -10,6 +10,8 @@ import { useValidator } from '~/hooks';
 import images from "~/assets/images";
 import FormGroup from "~/components/FormGroup";
 import { resetPasswordService } from "~/apiServices";
+import routesConfig from '~/config/routes'
+
 
 const cx = classNames.bind(styles)
 
@@ -36,7 +38,7 @@ function ResetPassword() {
 
         if (res.result?.success) {
             alert('Change Password Success')
-            navigate('/ForumLanguage/login')
+            navigate(routesConfig.login)
         } else {
             console.log(`Error: ${res}`);
 

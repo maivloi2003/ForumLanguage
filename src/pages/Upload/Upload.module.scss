@@ -63,6 +63,11 @@
     height: 40px;
     border-radius: 6px;
     padding: 0 8px;
+
+    .selected {
+        background-color: rgba(0, 0, 0, 0.08);
+        color: var(--text-color);
+    }
 }
 .content-text {
     display: block;
@@ -102,4 +107,17 @@
     border-radius: 8px;
     font-size: 1.8rem;
     font-weight: 600;
+}
+
+// Styles font
+.bold {
+    font-weight: bolder;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
 }

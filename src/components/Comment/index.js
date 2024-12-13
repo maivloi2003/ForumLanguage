@@ -1,13 +1,14 @@
 import classNames from "classnames/bind";
 import styles from './Comment.module.scss'
 import Button from '~/components/Button'
+import Image from '~/components/Image';
 const cx = classNames.bind(styles)
 
 function Comment({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('user')}>
-                <img src={data.img_user} alt={data.name} className={cx('img')} />
+                <Image src={data.img_user} alt={data.name} className={cx('img')} />
                 <h3 className={cx('username')}>{data.name}</h3>
                 <span className={cx('datetime')}>{data.date_created}</span>
             </div>

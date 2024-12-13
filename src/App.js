@@ -2,19 +2,20 @@ import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from '~/routes';
 import { DefaultLayout } from '~/components/Layouts';
+import routesConfig from '~/config/routes'
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('authToken');
 };
 
 const PrivateRoute = ({ children }) => {
-    return isAuthenticated() ? children : <Navigate to="/ForumLanguage/login" />;
+    return isAuthenticated() ? children : <Navigate to={routesConfig.login} />;
 };
 
 function App() {
 
     return (
-        <Router >
+        <Router>
             <div className="App">
                 <Routes>
                     {/* Public Routes */}

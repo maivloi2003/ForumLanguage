@@ -7,6 +7,7 @@ import Button from "~/components/Button";
 import Image from "~/components/Image";
 import images from "~/assets/images";
 import { sendEmailService } from "~/apiServices";
+import routesConfig from '~/config/routes'
 
 const cx = classNames.bind(styles)
 
@@ -22,7 +23,7 @@ function ActiveAccount() {
 
         const res = await sendEmailService(token);
         if (res.result?.success) {
-            navigate('/ForumLanguage/sendEmail', { state: { fromPage: 'activeAccount' } });
+            navigate(routesConfig.sendEmail, { state: { fromPage: 'activeAccount' } });
         } else {
             console.error("Failed to send email. Response:", res);
         }
@@ -40,7 +41,7 @@ function ActiveAccount() {
                 </div>
                 <div className={cx('body')}>
                     <Button onClick={handleSendEmail} className={cx('btn-send')} round primary >Send</Button>
-                    <Link className={cx('link')} to='/ForumLanguage/login'>Sign in with another account?</Link>
+                    <Link className={cx('link')} to={routesConfig.login}>Sign in with another account?</Link>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ import Image from '~/components/Image';
 import { useValidator } from '~/hooks';
 import { registerService } from '~/apiServices'
 import FormGroup from '~/components/FormGroup';
+import routesConfig from '~/config/routes'
 
 const cx = classNames.bind(styles)
 
@@ -16,7 +17,7 @@ function Register() {
 
     const [messageError, setMessageError] = useState({});
     const [formData, setFormData] = useState({
-        fullname: '',
+        name: '',
         email: '',
         language: '',
         sex: '',
@@ -29,7 +30,7 @@ function Register() {
 
     const { errors, validateField, clearError, validateAll } = useValidator({
         rules: [
-            useValidator.isRequired('fullname', 'This field is required'),
+            useValidator.isRequired('name', 'This field is required'),
             useValidator.isRequired('email', 'This field is required'),
             useValidator.isEmail('email', 'Email address is not valid'),
             useValidator.isRequired('language', 'This field is required'),
@@ -47,7 +48,7 @@ function Register() {
 
         if (res.result) {
             alert('Register Success!!')
-            navigate('/ForumLanguage/login');
+            navigate(routesConfig.login);
         } else {
             const { code, message } = res.response.data
             if (code === 40001) {
@@ -88,7 +89,7 @@ function Register() {
                         <div className={cx('spacer')}></div>
 
                         <FormGroup
-                            name="fullname"
+                            name="name"
                             text='Full Name'
                             placeholder='Ex: Nguyen Van A'
                             classNameFormGroup={cx('formGroup')}
@@ -98,8 +99,8 @@ function Register() {
                             classNameInvalid={cx('invalid')}
                             handleBlur={handleBlur}
                             handleChange={handleChange}
-                            value={formData.fullname}
-                            valid={errors.fullname}
+                            value={formData.name}
+                            valid={errors.name}
                         />
 
                         <FormGroup
@@ -201,7 +202,7 @@ function Register() {
                             value={formData.repassword}
                             valid={errors.repassword}
                         />
-                        <div className={cx('link')}><Link className={cx('link-login')} to='/ForumLanguage/login'>Has Account?</Link></div>
+                        <div className={cx('link')}><Link className={cx('link-login')} to={routesConfig.login}>Has Account?</Link></div>
                         <button className={cx('formSubmit')} type="submit">Register</button>
                     </form>
                 </div>

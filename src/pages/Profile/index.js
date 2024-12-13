@@ -12,15 +12,18 @@ function Profile({ contentRef }) {
     const [user, setUser] = useState({ id: '', img: '', name: '' });
     const [currentPage, setCurrentPage] = useState(0);
     const [postsUser, setPostsUser] = useState([]);
+    const token = localStorage.getItem("authToken");
 
-    useScroll(contentRef, () => {
-        setCurrentPage(prev => prev + 1);
-    });
+    const getUserIdFromURL = () => {
+        const url = window.location.pathname;
+        return url.substring(url.lastIndexOf("/") + 1);
+    };
 
-    const handleGetPost = async (id, page, size, token) => {
-        const res = await getPostByIdUserService(id, page, size, token);
-        if (res.result?.content) {
-            setPostsUser(prevPosts => [...prevPosts, ...res.result.content]);
+    const handleGetPost = async (id, page) => {
+        const res = await getPostByIdUserService(id, page, 5, token);
+        if (res?.result) {
+            const data = res.result.content;
+            setPostsUser((prev) => (page === 0 ? data : [...prev, ...data]));
         } else {
             console.log(res);
         }
@@ -31,31 +34,27 @@ function Profile({ contentRef }) {
         if (res?.result) {
             const tempUser = res.result;
             setUser({ id: tempUser.id, img: tempUser.img, name: tempUser.name });
-            const token = localStorage.getItem('authToken');
-            if (token) {
-                handleGetPost(tempUser.id, currentPage, 5, token);
-            }
+            if (token) handleGetPost(tempUser.id, 0);
         }
     };
 
     useEffect(() => {
-        const handleURLChange = () => {
-            const url = document.URL;
-            const idUser = url.substring(url.lastIndexOf('/') + 1);
-            handleGetUser(idUser);
-        };
-
-        handleURLChange();
-        window.addEventListener('popstate', handleURLChange);
-
-        return () => window.removeEventListener('popstate', handleURLChange);
+        const userId = getUserIdFromURL();
+        if (userId) {
+            setPostsUser([]);
+            setCurrentPage(0);
+            handleGetUser(userId);
+        }
         // eslint-disable-next-line
     }, []);
 
+    useScroll(contentRef, () => {
+        setCurrentPage((prev) => prev + 1);
+    });
+
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (user.id && token) {
-            handleGetPost(user.id, currentPage, 5, token);
+        if (user.id) {
+            handleGetPost(user.id, currentPage);
         }
         // eslint-disable-next-line
     }, [currentPage]);
@@ -68,7 +67,9 @@ function Profile({ contentRef }) {
             </div>
 
             <div className={cx('body')}>
-                {postsUser && postsUser.map((item, index) => <Post profile key={index} data={item} />)}
+                {postsUser.map((post, index) => (
+                    <Post profile key={post.id || index} data={post} />
+                ))}
             </div>
         </div>
     );

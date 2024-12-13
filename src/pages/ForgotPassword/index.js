@@ -10,6 +10,7 @@ import { useValidator } from '~/hooks';
 import FormGroup from "~/components/FormGroup";
 import stylesShare from '~/styles/share.module.scss';
 import { forgotPasswordService } from '~/apiServices'
+import routesConfig from '~/config/routes'
 
 
 const cx = classNames.bind(styles)
@@ -36,7 +37,7 @@ function ForgotPassword() {
             const token = res.result.token
             localStorage.setItem('authToken', token)
             if (localStorage.getItem('authToken')) {
-                navigate('/ForumLanguage/sendEmail', { state:{ fromPage: 'forgotPassword'}})
+                navigate(routesConfig.sendEmail, { state: { fromPage: 'forgotPassword' } })
             }
         } else {
             const { code, message } = res.response.data

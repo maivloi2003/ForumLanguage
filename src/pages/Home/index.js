@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 function Home({ contentRef }) {
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const { infoUser } = useContext(UserContext)
+    const { infoUser } = useContext(UserContext);
 
     const location = useLocation();
 
@@ -23,53 +23,64 @@ function Home({ contentRef }) {
     };
 
     const fetchPosts = async ({ page, size, content, language, token }) => {
-        const res = await searchService(page, size, content, language, token);
-
-        if (res?.result) {
-            const data = res.result.content;
-            setPosts((prev) => (page === 0 ? data : [...prev, ...data]));
-        } else {
-            console.error(res);
+        try {
+            const res = await searchService(page, size, content, language, token);
+            if (res?.result) {
+                const data = res.result.content;
+                setPosts((prev) => (page === 0 ? data : [...prev, ...data]));
+            } else {
+                console.error('Failed to fetch posts:', res);
+            }
+        } catch (error) {
+            console.error('Error fetching posts:', error);
         }
     };
 
     useEffect(() => {
-        const content = getParamsFromURL();
-        const token = infoUser ? localStorage.getItem('authToken') : undefined;
-        const data = {
-            page: 0,
-            size: 5,
-            content,
-            language: '',
-            token,
-        };
+        const timeoutId = setTimeout(() => {
+            const fetchData = async () => {
+                const content = getParamsFromURL();
+                const token = infoUser ? localStorage.getItem('authToken') : undefined;
 
-        setCurrentPage(0);
-        setPosts([]);
-        fetchPosts(data);
-        // eslint-disable-next-line
-    }, [location.search, infoUser]);
+                setCurrentPage(0);
+                setPosts([]);
 
+                await fetchPosts({
+                    page: 0,
+                    size: 5,
+                    content,
+                    language: '',
+                    token,
+                });
+            };
+
+            fetchData();
+        }, 500);
+
+        return () => clearTimeout(timeoutId)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [infoUser]);
 
     useScroll(contentRef, () => {
         const content = getParamsFromURL();
-        const data = {
+        const token = infoUser ? localStorage.getItem('authToken') : undefined;
+
+        fetchPosts({
             page: currentPage + 1,
             size: 5,
             content,
             language: '',
-            token: localStorage.getItem('authToken') || undefined,
-        };
+            token,
+        });
 
         setCurrentPage((prev) => prev + 1);
-        fetchPosts(data);
     });
 
     return (
         <div className={cx('wrapper')}>
-            {posts.length > 0 && (
-                posts.map((post, index) => <Post data={post} key={index} />)
-            )}
+            {posts.map((post, index) => (
+                <Post data={post} key={post.id || index} />
+            ))}
         </div>
     );
 }

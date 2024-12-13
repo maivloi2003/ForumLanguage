@@ -2,20 +2,15 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import MenuItem from './MenuItem';
 import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-function Menu({ children, items = [], post = false }) {
+function Menu({ children, items = [], hideOnClick = false, post = false }) {
     const [history, setHistory] = useState([{ data: items }]);
-
-    useEffect(() => {
-        setHistory([{ data: items }]);
-    }, [items]);
-
-    const current = useMemo(() => history[history.length - 1], [history]);
+    const current = history[history.length - 1];
 
     const handleItemClick = (item) => {
         if (item.onClick) {
@@ -26,7 +21,7 @@ function Menu({ children, items = [], post = false }) {
     };
 
     const handleBack = () => {
-        setHistory((prev) => prev.slice(0, -1));
+        setHistory((prev) => prev.slice(0, prev.length - 1));
     };
 
     const renderItems = useMemo(
@@ -42,6 +37,7 @@ function Menu({ children, items = [], post = false }) {
             trigger={post ? 'click' : 'mouseenter focus'}
             offset={[12, 8]}
             interactive
+            hideOnClick={hideOnClick}
             delay={[0, 500]}
             placement="bottom-end"
             render={(attrs) => (

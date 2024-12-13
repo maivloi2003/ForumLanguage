@@ -10,6 +10,6 @@
 .content {
     flex: 1;
     max-height: 850px;
-    overflow-y: auto;
     padding-bottom: 30px;
+    overflow-y: overlay;
 }

@@ -6,7 +6,7 @@
     --black: #000;
     --white: #fff;
     --header-height: 70px;
-
+    --font-family: 'ForumFont', 'san-serif';
     // Default Layout
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
@@ -20,32 +20,32 @@
 
 html {
     font-size: 62.5%;
-    overflow-y: hidden;
 }
 
 body {
-    font-family: 'ForumFont', san-serif;
+    font-family: var(--font-family);
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
+    overflow: hidden;
 }
 
 @font-face {
     font-family: ForumFont;
-    src: url('/assets/fonts/ForumFont-Regular.woff2');
+    src: url('/assets/fonts/ForumFont-Regular.woff2') format('woff2');
     font-weight: 400;
 }
 
 @font-face {
     font-family: ForumFont;
-    src: url('/assets/fonts/ForumFont-Semibold.woff2');
+    src: url('/assets/fonts/ForumFont-Semibold.woff2') format('woff2');
     font-weight: 600;
 }
 
 @font-face {
     font-family: ForumFont;
-    src: url('/assets/fonts/ForumFont-Bold.woff2');
+    src: url('/assets/fonts/ForumFont-Bold.woff2') format('woff2');
     font-weight: 700;
 }
 

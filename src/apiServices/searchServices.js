@@ -1,6 +1,6 @@
 import * as request from '~/utils/request'
 
-const search = async (page, size, content, language, token = undefined) => {
+const search = async (page, size, content, language, token) => {
     try {
         const config = {
             params: {
