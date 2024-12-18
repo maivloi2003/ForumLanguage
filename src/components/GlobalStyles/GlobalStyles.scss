@@ -28,7 +28,7 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
-    overflow: hidden;
+    overflow-y: overlay;
 }
 
 @font-face {

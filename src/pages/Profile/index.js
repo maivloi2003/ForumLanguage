@@ -13,7 +13,13 @@ function Profile({ contentRef }) {
     const [currentPage, setCurrentPage] = useState(0);
     const [postsUser, setPostsUser] = useState([]);
     const token = localStorage.getItem("authToken");
-
+    const [language, setLanguage] = useState({});
+    useEffect(() => {
+        const lang = JSON.parse(localStorage.getItem('lang'));
+        if (lang) {
+            setLanguage(lang);
+        }
+    }, []);
     const getUserIdFromURL = () => {
         const url = window.location.pathname;
         return url.substring(url.lastIndexOf("/") + 1);
@@ -68,7 +74,7 @@ function Profile({ contentRef }) {
 
             <div className={cx('body')}>
                 {postsUser.map((post, index) => (
-                    <Post profile key={post.id || index} data={post} />
+                    <Post language={language} profile key={post.id || index} data={post} />
                 ))}
             </div>
         </div>

@@ -10,65 +10,73 @@ import {
     faScroll,
     faSquareArrowUpRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 
-import styles from './Sidebbar.module.scss';
+import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const [language, setLanguage] = useState({});
+    useEffect(() => {
+        const lang = JSON.parse(localStorage.getItem('lang'));
+        if (lang) {
+            setLanguage(lang || {});
+        }
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('navbar')}>
                 <ul className={cx('navList')}>
                     <li className={cx('navItem')}>
                         <FontAwesomeIcon icon={faHome} />
-                        <span>Home</span>
+                        <span>{language.homeNavHome || 'Home'}</span>
                     </li>
                     <li className={cx('navItem')}>
                         <FontAwesomeIcon icon={faFire} />
-                        <span>Popular</span>
+                        <span>{language.homeNavPopular || 'Popular'}</span>
                     </li>
                     <li className={cx('navItem')}>
                         <FontAwesomeIcon icon={faSquareArrowUpRight} />
-                        <span>New</span>
+                        <span>{language.homeNavNew || 'New'}</span>
                     </li>
                 </ul>
             </div>
             <div className={cx('languages')}>
-                <span className={cx('title')}>Language</span>
+                <span className={cx('title')}>{language.homeNavLang || 'Language'}</span>
                 <ul className={cx('languageList')}>
                     <li className={cx('languageItem')}>
                         <FontAwesomeIcon icon={faNewspaper} />
-                        <span>English</span>
+                        <span>{language.homeLangEng || 'English'}</span>
                     </li>
                     <li className={cx('languageItem')}>
                         <FontAwesomeIcon icon={faNewspaper} />
-                        <span>China</span>
+                        <span>{language.homeLangChina || 'China'}</span>
                     </li>
                     <li className={cx('languageItem')}>
                         <FontAwesomeIcon icon={faNewspaper} />
-                        <span>Japan</span>
+                        <span>{language.homeLangJapan || 'Japan'}</span>
                     </li>
                 </ul>
             </div>
             <div className={cx('other')}>
-                <span className={cx('title')}>Other</span>
+                <span className={cx('title')}>{language.homeNavOther || 'Other'}</span>
                 <ul className={cx('otherList')}>
                     <li className={cx('otherItem')}>
                         <FontAwesomeIcon icon={faAddressCard} />
-                        <span>About FL</span>
+                        <span>{language.homeOtherAbout || 'About FL'}</span>
                     </li>
                     <li className={cx('otherItem')}>
                         <FontAwesomeIcon icon={faFlag} />
-                        <span>Advertise</span>
+                        <span>{language.homeOtherAdv || 'Advertise'}</span>
                     </li>
                     <li className={cx('otherItem')}>
                         <FontAwesomeIcon icon={faQuestion} />
-                        <span>Help</span>
+                        <span>{language.homeOtherHelp || 'Help'}</span>
                     </li>
                     <li className={cx('otherItem')}>
                         <FontAwesomeIcon icon={faScroll} />
-                        <span>Policy</span>
+                        <span>{language.homeOtherPolicy || 'Policy'}</span>
                     </li>
                 </ul>
             </div>

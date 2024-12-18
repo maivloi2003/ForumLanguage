@@ -13,7 +13,7 @@ import packageInfo from '../../../package.json'
 
 const cx = classNames.bind(styles)
 
-function Post({ data, profile = false }) {
+function Post({ data, profile = false, language }) {
     const [showLike, setShowLike] = useState(data.user_like || false);
     const [showModal, setShowModal] = useState(false);
     const [deleteState, setDeleteState] = useState(false)
@@ -25,15 +25,15 @@ function Post({ data, profile = false }) {
 
     const getMenuItems = () => {
         const commonItems = [
-            { icon: faBookmark, title: "Save" },
-            { icon: faEyeSlash, title: "Hidden" },
+            { icon: faBookmark, title: language.homeMenuSave || "Save" },
+            { icon: faEyeSlash, title: language.homeMenuHidden || "Hidden" },
         ];
 
         if (data.user_post) {
             return [
-                { icon: faPen, title: "Edit" },
+                { icon: faPen, title: language.homeMenuEdit || "Edit" },
                 ...commonItems,
-                { icon: faTrash, title: "Delete", onClick: handleToggleModal },
+                { icon: faTrash, title: language.homeMenuDel || "Delete", onClick: handleToggleModal },
             ];
         }
         return [...commonItems, { icon: faFlag, title: "Report" }];
@@ -94,17 +94,18 @@ function Post({ data, profile = false }) {
             <div className={cx('wrapper', { profile })}>
                 <div className={cx('header')}>
                     <div className={cx('user')}>
-                        <Link to={`/ForumLanguage/users/${data.id_user}`} >
+                        <Link to={`/users/${data.id_user}`} >
                             <Image className={cx('avatar')} src={data.img_user} />
                         </Link>
-                        <Link className={cx('name')} to={`/ForumLanguage/users/${data.id_user}`}>{data.name}</Link>
-                        <Link className={cx('date')} to={`/ForumLanguage/post/${data.id}`}>{data.date_created}</Link>
-                        <Link className={cx('language')} to={`/ForumLanguage/post/${data.id}`}>{data.language}</Link>
+                        <Link className={cx('name')} to={`/users/${data.id_user}`}>{data.name}</Link>
+                        <Link className={cx('date')} to={`/post/${data.id}`}>{data.date_created}</Link>
+                        <Link className={cx('language')} to={`/post/${data.id}`}>{data.language}</Link>
 
                     </div>
                     <div className={cx('more-btn')}>
+
                         {token ? (
-                            <Menu post={true} items={getMenuItems()}>
+                            <Menu hideOnClick={true} post={true} items={getMenuItems()}>
                                 <Button iconText leftIcon={faEllipsisVertical} />
                             </Menu>
                         ) : (
@@ -113,16 +114,16 @@ function Post({ data, profile = false }) {
                     </div>
                 </div>
                 <div className={cx('title')}>
-                    <Link className={cx('text-title')} to={`/ForumLanguage/post/${data.id}`}>{data.title}</Link>
+                    <Link className={cx('text-title')} to={`/post/${data.id}`}>{data.title}</Link>
                 </div>
                 <div className={cx('content')}>
-                    <Link className={cx('text-content')} to={`/ForumLanguage/post/${data.id}`}>
+                    <Link className={cx('text-content')} to={`/post/${data.id}`}>
                         {renderContent()}
                     </Link>
                 </div>
                 {data.img && (
                     <div className={cx('img')}>
-                        <Link to={`/ForumLanguage/post/${data.id}`} className={cx('img-link')}>
+                        <Link to={`/post/${data.id}`} className={cx('img-link')}>
                             <Image src={data.img} className={cx('img-src')} />
                         </Link>
                     </div>
@@ -142,7 +143,7 @@ function Post({ data, profile = false }) {
                     </div>
                     <div className={cx('comment')}>
                         <Button
-                            to={`/ForumLanguage/post/${data.id}`}
+                            to={`/post/${data.id}`}
                             className={cx('comment-btn')}
                             round
                             normal

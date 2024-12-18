@@ -6,7 +6,6 @@ import Header from '~/components/Layouts/components/Header';
 
 const cx = classNames.bind(styles);
 
-
 function DefaultLayout({ children }) {
     const contentRef = useRef();
 

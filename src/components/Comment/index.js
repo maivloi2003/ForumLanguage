@@ -4,7 +4,7 @@ import Button from '~/components/Button'
 import Image from '~/components/Image';
 const cx = classNames.bind(styles)
 
-function Comment({ data }) {
+function Comment({ data, language }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('user')}>
@@ -18,8 +18,8 @@ function Comment({ data }) {
             </div>
 
             <div className={cx('interact')}>
-                <Button iconText className={cx('like')} >Like</Button>
-                <Button iconText className={cx('reply')} >Reply</Button>
+                <Button iconText className={cx('like')} >{language.postBtnReply}</Button>
+                <Button iconText className={cx('reply')} >{language.postBtnLike}</Button>
             </div>
         </div>
     );

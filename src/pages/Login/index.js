@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import stylesGrid from '~/styles/grid.module.scss'
@@ -8,8 +8,7 @@ import images from "~/assets/images";
 import Image from "~/components/Image";
 import { useValidator } from '~/hooks';
 import FormGroup from '~/components/FormGroup';
-import { loginService, checkActiveService, infoUserCurrentService } from '~/apiServices'
-import { UserContext } from '~/context/UserContext';
+import { loginService, checkActiveService, infoUserCurrentService, getLangService } from '~/apiServices'
 import routesConfig from '~/config/routes'
 
 const cx = classNames.bind(styles)
@@ -17,14 +16,13 @@ const cx = classNames.bind(styles)
 function Login() {
     const navigate = useNavigate()
     const [messageError, setMessageError] = useState({});
-    const { setInfoUser } = useContext(UserContext);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
 
     useEffect(() => {
-        localStorage.removeItem('authToken')
+        localStorage.clear()
     }, [])
 
     const { errors, validateField, clearError, validateAll } = useValidator({
@@ -52,9 +50,18 @@ function Login() {
             const activeRes = await checkActiveService(token);
             if (activeRes.result?.active) {
                 const userInfoRes = await infoUserCurrentService(token);
-                if (userInfoRes.result) {
-                    setInfoUser(userInfoRes.result);
-                    navigate(routesConfig.home);
+                const userResponse = userInfoRes.result
+                if (userResponse) {
+                    localStorage.setItem('currentUser', JSON.stringify(userResponse))
+                    const languageRes = await getLangService(userResponse.language)
+                    if (languageRes?.result) {
+                        const resultObj = languageRes.result.reduce((acc, item) => {
+                            acc[item.keyName] = item.translated;
+                            return acc;
+                        }, {});
+                        localStorage.setItem('lang', JSON.stringify(resultObj))
+                        navigate(routesConfig.home);
+                    }
                 }
             } else {
                 navigate(routesConfig.activeAccount);

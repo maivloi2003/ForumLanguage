@@ -1,4 +1,5 @@
 export { default as searchService } from './searchServices'
+export { default as getLangService } from './getLangServices'
 export { default as likeService } from './likeServices'
 export { default as notifyService } from './notifyServices'
 export { default as commentService } from './commentServices'

@@ -30,7 +30,13 @@ function Upload() {
     });
     const fileInputRef = useRef();
     const navigate = useNavigate();
-
+    const [language, setLanguage] = useState({});
+    useEffect(() => {
+        const lang = JSON.parse(localStorage.getItem('lang'));
+        if (lang) {
+            setLanguage(lang);
+        }
+    }, []);
     useEffect(() => {
         document.title = formData.title || 'ForumLanguages';
     }, [formData]);
@@ -46,7 +52,7 @@ function Upload() {
     const handleImageUpload = () => fileInputRef.current.click();
 
     const handleFileChange = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const imgFile = e.target.files[0];
         if (imgFile) {
             const reader = new FileReader();
@@ -88,14 +94,17 @@ function Upload() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const imgLink = await uploadImage(fileInputRef.current.files[0]);
+        let imgLink = undefined
+        if (fileInputRef.current.files[0]) {
+            imgLink = await uploadImage(fileInputRef.current.files[0]);
+        }
         const data = { ...formData, img: imgLink || formData.img };
         const token = localStorage.getItem('authToken')
         const res = await uploadPostService(data, token);
         if (res?.result) {
-            navigate(`/post/${res.result.id}`);
+            navigate(`/ForumLanguage/post/${res.result.id}`);
         } else {
-            console.error("Post upload failed:", res);
+            console.log(res);
         }
 
     };
@@ -104,17 +113,17 @@ function Upload() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
-                <h3 className={cx('header-heading')}>Create a Post</h3>
+                <h3 className={cx('header-heading')}>{language.uploadHeading}</h3>
             </div>
             <form className={cx('form')} onSubmit={handleSubmit}>
                 <div className={cx('kind')}>
-                    <span className={cx('kind-title')}>Language:</span>
+                    <span className={cx('kind-title')}>{language.uploadTitleLang}:</span>
                     <select
                         value={formData.language}
                         onChange={handleInputChange('language')}
                         className={cx('kind-select')}
                     >
-                        <option value='' disabled>Language</option>
+                        <option value='' disabled>{language.uploadBtnLang}</option>
                         <option value='English'>English</option>
                         <option value='China'>China</option>
                         <option value='Japan'>Japan</option>
@@ -128,7 +137,7 @@ function Upload() {
                             onChange={handleInputChange('title')}
                             onBlur={handleBlur}
                             className={cx('title-input')}
-                            placeholder="Title"
+                            placeholder={language.uploadPlaceHolderTitle}
                         />
                     </div>
                     <div className={cx('content')}>
@@ -136,7 +145,7 @@ function Upload() {
                             <Button className={isBold ? `${cx('selected')}` : ''} iconNav leftIcon={faBold} onClick={handleToggleBold} />
                             <Button className={isItalic ? `${cx('selected')}` : ''} iconNav leftIcon={faItalic} onClick={handleToggleItalic} />
                             <Button className={isUnderline ? `${cx('selected')}` : ''} iconNav leftIcon={faUnderline} onClick={handleToggleUnderline} />
-                            <Button iconNav leftIcon={faImage} onClick={handleImageUpload}>
+                            <Button type="button" iconNav leftIcon={faImage} onClick={handleImageUpload}>
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -152,7 +161,7 @@ function Upload() {
                             onChange={handleInputChange('content')}
                             onBlur={handleBlur}
                             className={cx('content-text', isBold ? 'bold' : '', isItalic ? 'italic' : '', isUnderline ? 'underline' : '')}
-                            placeholder="Content Post..."
+                            placeholder={language.uploadPlaceHolderContent}
                         ></textarea>
                     </div>
                     {showImg && (
@@ -161,8 +170,8 @@ function Upload() {
                         </div>
                     )}
                     <div className={cx('upload')}>
-                        <Button round normal={!isButtonDisabled} disabled={isButtonDisabled} className={cx('upload-btn')}>
-                            Post
+                        <Button type='submit' round normal={!isButtonDisabled} disabled={isButtonDisabled} className={cx('upload-btn')}>
+                            {language.uploadBtnUpload}
                         </Button>
                     </div>
                 </div>

@@ -1,35 +1,20 @@
-import { createContext, useEffect, useState } from "react";
-import { infoUserCurrentService } from "~/apiServices";
+import { createContext, useState, useEffect } from 'react';
 
-const UserContext = createContext();
+export const UserContext = createContext();
 
-function UserProvider({ children }) {
-    const [infoUser, setInfoUser] = useState(null)
+export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const fetchInfoUser = async () => {
-            const token = localStorage.getItem('authToken')
-            if (!token) {
-                return;
-            }
-
-            const res = await infoUserCurrentService(token)
-
-            if (res?.result) {
-                setInfoUser(res.result)
-            } else {
-                localStorage.removeItem('authToken')
-            }
+        const userCurrent = JSON.parse(localStorage.getItem('currentUser'));
+        if (userCurrent) {
+            setUser(userCurrent);
         }
-
-        fetchInfoUser()
-    }, [])
+    }, []);
 
     return (
-        <UserContext.Provider value={{ infoUser, setInfoUser }}>
+        <UserContext.Provider value={{ user, setUser }}>
             {children}
         </UserContext.Provider>
     );
-}
-
-export { UserProvider, UserContext };
+};

@@ -11,7 +11,7 @@ function HeaderOnly({ children }) {
         <div className={cx('wrapper')}>
             <Header />
             <div className={cx('contain')}>
-                <div className={cx('content')}>{children && React.cloneElement(children, { contentRef })}</div>
+                <div ref={contentRef} className={cx('content')}>{children && React.cloneElement(children, { contentRef })}</div>
             </div>
         </div>
     );
